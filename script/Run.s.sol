@@ -12,10 +12,9 @@ contract RunScript is Script {
     using LibDyn for *;
 
     function run() public {
-        // EtherDeckMk2 deck = EtherDeckMk2(payable(vm.envAddress("DECK")));
+        EtherDeckMk2 deck = EtherDeckMk2(payable(vm.envAddress("DECK")));
         console2.log(LibConst.HEADER, LibConst.BAR);
         vm.startBroadcast();
-        EtherDeckMk2 deck = new EtherDeckMk2();
 
         address target;
         uint256 value;

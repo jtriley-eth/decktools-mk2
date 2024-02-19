@@ -12,11 +12,9 @@ contract RunBatchScript is Script {
     using LibDyn for *;
 
     function run() public {
-        // EtherDeckMk2 deck = EtherDeckMk2(payable(vm.envAddress("DECK")));
+        EtherDeckMk2 deck = EtherDeckMk2(payable(vm.envAddress("DECK")));
         console2.log(LibConst.HEADER, LibConst.BAR);
         vm.startBroadcast();
-
-        EtherDeckMk2 deck = new EtherDeckMk2();
 
         address[] memory targets = [address(0x01), address(0x02)].toDynamic();
         uint256[] memory values = [uint256(0), uint256(0)].toDynamic();
