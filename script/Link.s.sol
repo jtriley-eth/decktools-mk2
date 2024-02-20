@@ -38,7 +38,7 @@ contract LinkScript is Script {
         vm.stopBroadcast();
         console2.log(LibConst.MODS_LINKED);
         for (uint256 i; i < mods.length; i++) {
-            console2.log("\t", mods[i].toString());
+            console2.log(unicode"\tΞ ←", mods[i].toString());
         }
         console2.log(LibConst.BAR);
     }

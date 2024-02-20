@@ -13,6 +13,7 @@ import { StorageMod } from "../../lib/ether-deck-mk2/src/mods/StorageMod.sol";
 import { TransferMod } from "../../lib/ether-deck-mk2/src/mods/TransferMod.sol";
 import { TwoStepTransitionMod } from "../../lib/ether-deck-mk2/src/mods/TwoStepTransitionMod.sol";
 
+import { DeckHub } from "../../lib/ether-deck-mk2/src/DeckHub.sol";
 import { ModRegistry } from "../../lib/ether-deck-mk2/src/ModRegistry.sol";
 import { EtherDeckMk2 } from "../../lib/ether-deck-mk2/src/EtherDeckMk2.sol";
 
@@ -23,14 +24,26 @@ import { Mod, LibMod } from "../util/Mod.sol";
 contract InitializeScript is Script {
     using LibDyn for *;
 
+    // -- overwrite
+    address initializer = address(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    bytes32 salt = bytes32(uint256(0x45));
+
     function run() public {
         vm.startBroadcast();
 
-        IEtherDeckMk2 deck = IEtherDeckMk2(vm.envAddress("DECK"));
+        DeckHub hub = new DeckHub();
+
+        IEtherDeckMk2 deck = IEtherDeckMk2(hub.deploy(initializer, salt));
 
         deck.setDispatch(CreatorMod.create2.selector, address(new CreatorMod()));
 
-        ModRegistry registry = ModRegistry(deck.create2(keccak256("Ether Deck Mk2"), 0, type(ModRegistry).creationCode));
+        ModRegistry registry = ModRegistry(
+            deck.create2(
+                keccak256("Ether Deck Mk2"),
+                0,
+                abi.encodePacked(type(ModRegistry).creationCode, uint256(uint160(address(deck))))
+            )
+        );
 
         address[] memory targets = [
             address(registry),

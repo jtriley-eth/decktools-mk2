@@ -25,7 +25,7 @@ contract RunBatchScript is Script {
         vm.stopBroadcast();
         console2.log(LibConst.ACTIONS_TAKEN);
         for (uint256 i; i < targets.length; i++) {
-            console2.log("\n>>>", targets[i], values[i]);
+            console2.log(unicode"\nΞ →", targets[i], values[i]);
             console2.logBytes(payloads[i]);
         }
         console2.log(LibConst.BAR);

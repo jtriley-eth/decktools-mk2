@@ -31,7 +31,7 @@ contract UnlinkScript is Script {
         vm.stopBroadcast();
         console2.log(LibConst.MODS_UNLINKED);
         for (uint256 i; i < mods.length; i++) {
-            console2.log("\t", mods[i].toString());
+            console2.log(unicode"\nΞ ↚", mods[i].toString());
         }
         console2.log(LibConst.BAR);
     }

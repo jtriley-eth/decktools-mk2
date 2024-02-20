@@ -24,7 +24,7 @@ contract RunScript is Script {
 
         vm.stopBroadcast();
         console2.log(LibConst.ACTIONS_TAKEN);
-        console2.log("\n>>>", target);
+        console2.log(unicode"\nΞ →", target);
         console2.logBytes(payload);
         console2.log(LibConst.BAR);
     }
