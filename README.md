@@ -6,6 +6,16 @@ This repository contains helper scripts for the [EtherDeckMk2](https://github.co
 
 ### [InviteScript](script/Invite.s.sol)
 
+```mermaid
+sequenceDiagram
+    InviteScript->>+EtherDeckMk2: run
+        EtherDeckMk2->>+DeckRegistry: deploy
+            DeckRegistry->>+NewEtherDeckMk2: create2
+            NewEtherDeckMk2->>-DeckRegistry: success
+        DeckRegistry->>-EtherDeckMk2: new address
+    EtherDeckMk2->>-InviteScript: returndata
+```
+
 Usage:
 
 ```bash
@@ -22,6 +32,17 @@ Overwrites:
 
 ### [LinkScript](script/Link.s.sol)
 
+```mermaid
+sequenceDiagram
+    LinkScript->>+EtherDeckMk2: setDispatchBatch
+
+    loop setDispatch
+        EtherDeckMk2-->EtherDeckMk2: dispatch[selector] = mod
+    end
+
+    EtherDeckMk2->>-LinkScript: 
+```
+
 Usage:
 
 ```bash
@@ -36,6 +57,14 @@ Overwrites:
 - `mods`: overwrite the mods array to the mods you wish to link.
 
 ### [RunScript](script/Run.s.sol)
+
+```mermaid
+sequenceDiagram
+    RunScript->>+EtherDeckMk2: run
+        EtherDeckMk2->>+Target: payload
+        Target->>-EtherDeckMk2: returndata
+    EtherDeckMk2->>-RunScript: returndata
+```
 
 Usage:
 
@@ -53,6 +82,16 @@ Overwrites:
 
 ### [RunBatchScript](script/RunBatch.s.sol)
 
+```mermaid
+sequenceDiagram
+    RunBatchScript->>+EtherDeckMk2: runBatch
+        loop payloads
+            EtherDeckMk2->>+Target: payload
+            Target->>-EtherDeckMk2: returndata
+        end
+    EtherDeckMk2->>-RunBatchScript: 
+```
+
 Usage:
 
 ```bash
@@ -68,6 +107,17 @@ Overwrites:
 - `payloads`: overwrite the payload array with the calldata array you wish to use.
 
 ### [Unlink](script/Unlink.s.sol)
+
+```mermaid
+sequenceDiagram
+    UnlinkScript->>+EtherDeckMk2: setDispatchBatch
+
+    loop setDispatch
+        EtherDeckMk2-->EtherDeckMk2: dispatch[selector] = 0x0
+    end
+
+    EtherDeckMk2->>-UnlinkScript: 
+```
 
 Usage:
 
@@ -87,6 +137,17 @@ Overwrites:
 
 ### [GenesisScript](script/admin/Genesis.s.sol)
 
+```mermaid
+sequenceDiagram
+    GenesisScript->>+DeckRegistry: create
+    DeckRegistry->>-GenesisScript: 
+
+    GenesisScript->>+DeckRegistry: deploy
+    DeckRegistry->>-GenesisScript: deck
+
+    Note left of GenesisScript: selfdestruct
+```
+
 Usage:
 
 ```bash
@@ -97,6 +158,29 @@ The genesis script creates a contract called `Genesis`, which deploys the `DeckR
 as the initial deck, creates a deck for the `creator`, then self destructs.
 
 ### [InitializeScript](script/admin/Initialize.s.sol)
+
+```mermaid
+sequenceDiagram
+    InitializeScript->>+TemporaryCreateMod: create
+    InitializeScript->>+EtherDeckMk2: setDispatch
+    EtherDeckMk2->>-InitializeScript: 
+    InitializeScript->>+EtherDeckMk2: run
+        EtherDeckMk2->>+ModRegistry: create2
+        ModRegistry->>-EtherDeckMk2: 
+        loop deploy each MOD
+            EtherDeckMk2->>+MOD: create2
+            MOD->>-EtherDeckMk2: 
+        end
+    EtherDeckMk2->>-InitializeScript: 
+    InitializeScript->>+EtherDeckMk2: runBatch
+        loop register each MOD
+            EtherDeckMk2->>+ModRegistry: register
+            ModRegistry->>-EtherDeckMk2: 
+        end
+    EtherDeckMk2->>-InitializeScript: 
+    InitializeScript->>+EtherDeckMk2: setDispatch
+    EtherDeckMk2->>-InitializeScript: 
+```
 
 Usage:
 
