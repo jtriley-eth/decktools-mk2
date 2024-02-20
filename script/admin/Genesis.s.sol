@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 pragma solidity 0.8.24;
 
-import {Script} from "../../lib/forge-std/src/Script.sol";
+import { Script } from "../../lib/forge-std/src/Script.sol";
 
 import { DeckRegistry } from "../../lib/ether-deck-mk2/src/DeckRegistry.sol";
 

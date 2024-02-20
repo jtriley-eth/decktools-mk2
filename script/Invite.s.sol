@@ -21,10 +21,7 @@ contract InviteScript is Script {
 
         require(invitee != address(0));
 
-        deck.run(
-            registry,
-            abi.encodeCall(DeckRegistry.deploy, (invitee))
-        );
+        deck.run(registry, abi.encodeCall(DeckRegistry.deploy, (invitee)));
 
         address deployment;
         assembly {
