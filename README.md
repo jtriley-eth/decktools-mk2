@@ -4,31 +4,28 @@ This repository contains helper scripts for the [EtherDeckMk2](https://github.co
 
 ## Scripts
 
-### [InviteScript](script/Invite.s.sol)
+### [MakeScript](script/MakeScript.s.sol)
 
 ```mermaid
 sequenceDiagram
-    InviteScript->>+EtherDeckMk2: run
-        EtherDeckMk2->>+DeckRegistry: deploy
-            DeckRegistry->>+NewEtherDeckMk2: create2
-            NewEtherDeckMk2->>-DeckRegistry: success
-        DeckRegistry->>-EtherDeckMk2: new address
-    EtherDeckMk2->>-InviteScript: returndata
+    MakeScript->>+DeckHub: deploy
+        DeckHub->>+NewEtherDeckMk2: create2
+        NewEtherDeckMk2->>-DeckHub: success
+    DeckHub->>-MakeScript: new address
 ```
 
 Usage:
 
 ```bash
-forge script script/Invite.s.sol
+forge script script/Make.s.sol
 ```
 
-The invite script creates a new deck for an `invitee` from the `DeckRegistry`.
-
-The inviter must use their `EtherDeckMk2` deployed from the `DeckRegistry`.
+The invite script creates a new deck for a `runner` from the `DeckHub`.
 
 Overwrites:
 
-- `invitee`: overwrite the address to the address you wish to invite.
+- `runner`: overwrite the address to the address you wish to invite.
+- `salt`: overwrite the salt for deterministic deployment.
 
 ### [LinkScript](script/Link.s.sol)
 
@@ -134,28 +131,6 @@ Overwrites:
 - `mods`: overwrite the mods array to the mods you wish to unlink.
 
 ## Admin Scripts
-
-### [GenesisScript](script/admin/Genesis.s.sol)
-
-```mermaid
-sequenceDiagram
-    GenesisScript->>+DeckRegistry: create
-    DeckRegistry->>-GenesisScript: 
-
-    GenesisScript->>+DeckRegistry: deploy
-    DeckRegistry->>-GenesisScript: deck
-
-    Note left of GenesisScript: selfdestruct
-```
-
-Usage:
-
-```bash
-forge script script/admin/Genesis.s.sol:GenesisScript
-```
-
-The genesis script creates a contract called `Genesis`, which deploys the `DeckRegistry` with itself
-as the initial deck, creates a deck for the `creator`, then self destructs.
 
 ### [InitializeScript](script/admin/Initialize.s.sol)
 
