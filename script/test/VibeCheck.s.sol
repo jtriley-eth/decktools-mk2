@@ -18,20 +18,18 @@ import { ModRegistry } from "../../lib/ether-deck-mk2/src/ModRegistry.sol";
 import { LibConst } from "../util/Const.sol";
 
 contract VibeCheck is Script {
-    address internal bribeMod = address(0x311E92C63C77f17DbA53694e0e28Bb83ad95A577);
-    address internal creatorMod = address(0x85098d38a7ecB80597de67f787C7697CB40dCd47);
-    address internal flashMod = address(0x51d21D1987F66aBFDD2142eC341F030B4C0D29f3);
-    address internal flatlineMod = address(0xd584573a6E0b99c991ABE9b22835Ef53601CA008);
-    address internal receiverMod = address(0xbc7Ee6c99a5B6dC22AFB16d36916e5c70CA2FA0d);
-    address internal revokeMod = address(0x1F2AD1fa2b0F5ac4886397b536E60586bd6B015c);
-    address internal storageMod = address(0x65cE3Fdc88eCD8DD876c6BFe1b708EE3b3f7B29a);
-    address internal transferMod = address(0xB71FFF450dB7f1E84476d4CAc6ADf4BB77B7dA9b);
-    address internal twoStepTransitionMod = address(0xB323B07454f366a4d2257d3D84eB41F685C83FeA);
+    address internal bribeMod = address(0xA82706F72c8ca19C5aCBF93cddC9534A28B0ADF9);
+    address internal creatorMod = address(0x131e34C36A8A581E06207a40A552f54f569E6580);
+    address internal flashMod = address(0xa001CDa77c79dA06b9f74d23c78Ab9f68e2462AC);
+    address internal flatlineMod = address(0x462b133D3E4C24c405DaCff1AA562b92D0fb47fD);
+    address internal receiverMod = address(0x8b51C150d6899aa8efeD1E24D2489426c47C5653);
+    address internal revokeMod = address(0x09f473F09bE2024B30c96D5C2D24A626aE053433);
+    address internal storageMod = address(0xD82CF11f8DE80ca8107E60Fc188DB1448421D4E0);
+    address internal transferMod = address(0x21D9B7e84c8acF01898a41Ad0C39dDc2b1226142);
+    address internal twoStepTransitionMod = address(0xe8b77A455F73a09720b788274FbbF1BfBbb6057D);
 
-    address internal deckHub = address(0x5FbDB2315678afecb367f032d93F642f64180aa3);
-    address internal deck = address(0xe79729BB92e5b5ea7eb30eA7adF9B186598bCD7D);
-
-    ModRegistry internal registry = ModRegistry(address(0x6f985Fb41b6DCBCC9599d1e0D37A7E77a984363A));
+    address internal deckHub = address(0xc691129F7235863c6b19d0Ac005142688a4D8502);
+    ModRegistry internal registry = ModRegistry(address(0x2E79E8C87F496cD2D1fe0E32Fcfe945660501db3));
 
     function run() public view {
         console2.log(LibConst.HEADER, LibConst.BAR);

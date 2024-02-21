@@ -25,10 +25,11 @@ contract InitializeScript is Script {
     using LibDyn for *;
 
     // -- overwrite
-    address initializer = address(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    address initializer = address(0x00);
     bytes32 salt = bytes32(uint256(0x45));
 
     function run() public {
+        require(initializer != address(0));
         vm.startBroadcast();
 
         DeckHub hub = new DeckHub();
